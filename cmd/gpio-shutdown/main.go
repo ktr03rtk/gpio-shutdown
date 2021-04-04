@@ -39,7 +39,7 @@ func main() {
 		for {
 			switch p.Read() {
 			case gpio.Low:
-				counter += 1
+				counter++
 				if counter >= 200 {
 					fmt.Printf("shutdown start...\n")
 					if err := exec.Command("shutdown", "-h", "now").Run(); err != nil {
