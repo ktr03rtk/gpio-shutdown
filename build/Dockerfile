@@ -3,9 +3,9 @@ FROM golang:latest
 
 WORKDIR /go/src/app
 
-COPY . .
+COPY ./ .
 
 RUN go get -d -v ./...
 RUN go install -v ./...
 
-ENTRYPOINT [ "/bin/sh", "/go/src/app/scripts/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/sh", "/go/src/app/build/entrypoint.sh" ]
