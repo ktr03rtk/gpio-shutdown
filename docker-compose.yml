@@ -8,3 +8,4 @@ services:
       - ./bin:/go/src/app/bin
     tty: true
     container_name: builder
+    privileged: true
