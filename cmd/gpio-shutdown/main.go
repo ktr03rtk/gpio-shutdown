@@ -12,26 +12,19 @@ import (
 )
 
 func main() {
-	fmt.Println("start")
-	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
 		log.Fatal(err)
 	}
 
-	// Lookup a pin by its number:
 	p := gpioreg.ByName("GPIO2")
 	if p == nil {
 		log.Fatal("Failed to find GPIO2")
 	}
 
-	fmt.Printf("%s: %s\n", p, p.Function())
-
-	// Set it as input, with an internal pull down resistor:
 	if err := p.In(gpio.PullDown, gpio.FallingEdge); err != nil {
 		log.Fatal(err)
 	}
 
-	// Wait for edges as detected by the hardware, and print the value read:
 	for {
 		counter := 0
 		p.WaitForEdge(-1)
