@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"os/exec"
+	"time"
 
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
@@ -25,13 +27,29 @@ func main() {
 	fmt.Printf("%s: %s\n", p, p.Function())
 
 	// Set it as input, with an internal pull down resistor:
-	if err := p.In(gpio.PullDown, gpio.BothEdges); err != nil {
+	if err := p.In(gpio.PullDown, gpio.FallingEdge); err != nil {
 		log.Fatal(err)
 	}
 
 	// Wait for edges as detected by the hardware, and print the value read:
 	for {
+		counter := 0
 		p.WaitForEdge(-1)
-		fmt.Printf("-> %s\n", p.Read())
+	countLoop:
+		for {
+			switch p.Read() {
+			case gpio.Low:
+				counter++
+				if counter >= 200 {
+					fmt.Printf("shutdown start...\n")
+					if err := exec.Command("shutdown", "-h", "now").Run(); err != nil {
+						log.Fatal(err)
+					}
+				}
+			default:
+				break countLoop
+			}
+			time.Sleep(10 * time.Millisecond)
+		}
 	}
 }

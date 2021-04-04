@@ -1,0 +1,10 @@
+[Unit]
+Description = hardware shutdown daemon
+
+[Service]
+ExecStart=/opt/gpio-shutdown
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
