@@ -4,19 +4,22 @@ shutdown daemon for gpio switch
 
 # Overview
 
-This application shutdown OS after gpio switch pressed longer than 2 seconds.
+This application shutdown OS after gpio switch pressed longer than 5 seconds.
 
-# Usage
+# Installation
 
-- Run the `./build/build.sh` command to start generating binary code `./build/bin/gpio-shutdown`.
+### Software
+
+Below scripts download binary script and systemd service file, then start systemd service.
+
+```bash
+curl -s https://raw.githubusercontent.com/ktr03rtk/gpio-shutdown/main/scripts/setup.sh -o setup.sh
+sudo ./setup.sh
+```
+
+### Hardware
 
 - Connect GPIO2 (gpio number 3) and Ground (gpio number 6 and so on) to mechanical button.
-
-- Run the `./build/bin/gpio-shutdown` command to start shutdown daemon.
-
-- Now, you can shutdown OS by pressing button longer than 2 seconds.
-
-- (Option) Run the `./scripts/setup.sh` command to register gpio-shutdown daemon as systemd service.
 
 # Supported OS
 

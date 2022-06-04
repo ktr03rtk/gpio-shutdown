@@ -12,8 +12,11 @@ if [ "${USERNAME}" != "root" ]; then
   exit 1
 fi
 
-cp ./gpio-shutdown.service /etc/systemd/system/
-cp ../build/bin/gpio-shutdown /opt/
+curl -L https://github.com/ktr03rtk/gpio-shutdown/releases/download/v0.0.1test/gpio-shutdown.zip -o gpio-shutdown.zip
+unzip gpio-shutdown.zip
+rm gpio-shutdown.zip
+mv ./gpio-shutdown.service /etc/systemd/system/
+mv ./gpio-shutdown /opt/
 
 systemctl enable gpio-shutdown
 systemctl start gpio-shutdown
