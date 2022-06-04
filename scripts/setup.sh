@@ -12,7 +12,7 @@ if [ "${USERNAME}" != "root" ]; then
   exit 1
 fi
 
-curl -L https://github.com/ktr03rtk/gpio-shutdown/releases/download/v0.0.1test/gpio-shutdown.zip -o gpio-shutdown.zip
+curl -L https://github.com/ktr03rtk/gpio-shutdown/releases/download/v1.0.0/gpio-shutdown.zip -o gpio-shutdown.zip
 unzip gpio-shutdown.zip
 rm gpio-shutdown.zip
 mv ./gpio-shutdown.service /etc/systemd/system/
