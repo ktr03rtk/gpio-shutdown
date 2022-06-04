@@ -1,0 +1,8 @@
+services:
+  builder:
+    build: .
+    volumes:
+      - ./:/go/src/app
+    tty: true
+    container_name: builder
+    privileged: true

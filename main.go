@@ -11,6 +11,8 @@ import (
 	"periph.io/x/host/v3"
 )
 
+const waitTimeForShutDown =  5000 // ms
+
 func main() {
 	if _, err := host.Init(); err != nil {
 		log.Fatal(err)
@@ -33,7 +35,7 @@ func main() {
 			switch p.Read() {
 			case gpio.Low:
 				counter++
-				if counter >= 200 {
+				if counter >= waitTimeForShutDown {
 					fmt.Printf("shutdown start...\n")
 					if err := exec.Command("shutdown", "-h", "now").Run(); err != nil {
 						log.Fatal(err)
@@ -42,7 +44,7 @@ func main() {
 			default:
 				break countLoop
 			}
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(1 * time.Millisecond)
 		}
 	}
 }
